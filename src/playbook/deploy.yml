@@ -1,7 +1,40 @@
-- hosts: "*"
+---
+- name: Install Docker and Run Hello-World Container
+  hosts: "*"
   become: yes
+
   tasks:
-    - name: apt
+    - name: Update & Upgrade Packages
       apt:
         update_cache: yes
         upgrade: yes
+
+    - name: Install Required Packages
+      apt:
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Add Docker GPG Key
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+    - name: Add Docker Repository
+      shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Start and Enable Docker Service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Run Hello-World Container
+      command: docker run hello-world
