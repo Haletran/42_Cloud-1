@@ -59,6 +59,9 @@ called `Playbooks`.
 ```bash
 # Run the playbook to install and start Nginx on the web_servers group
 ansible-playbook deploy.yml
+
+# To connect to the remote servers and run commands
+ansible -i src/inventory/hosts ubuntu -m ping --user root --ask-pass
 ```
 
 ### CONTAINERS
