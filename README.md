@@ -60,6 +60,9 @@ called `Playbooks`.
 # Run the playbook to install and start Nginx on the web_servers group
 ansible-playbook deploy.yml
 
+# Run the playbook on a remote server
+ansible-playbook ./src/playbook/deploy.yml -i ./src/inventory/hosts --user root --ask-pass --ask-become-pass
+
 # To connect to the remote servers and run commands
 ansible -i src/inventory/hosts ubuntu -m ping --user root --ask-pass
 ```
