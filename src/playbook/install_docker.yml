@@ -1,5 +1,5 @@
 ---
-- name: Install Docker and Run Hello-World Container
+- name: Install Docker
   hosts: "*"
   become: yes
 
@@ -38,6 +38,3 @@
 
     - name: Add User to Docker group
       shell: usermod -aG docker vagrant
-
-    - name: Run Hello-World Container
-      command: docker run -d -p 80:80 nginx

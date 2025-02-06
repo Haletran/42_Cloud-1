@@ -80,12 +80,12 @@ and then i just need to setup `ssl` and `firewall` rules.
 
 ## How to run the project 
 
-
 ```bash
 NIXPKGS_ALLOW_UNFREE=1 nix-shell flake.nix
 cd src && vagrant up
 ## this will create an Ubuntu VM
-ansible-playbook playbook/deploy.yml #no need for other args since the everything is setup in ansible.cfg
+ansible-playbook playbook/install_docker.yml #no need for other args since the everything is setup in ansible.cfg
+ansible-playbook playbook/install_container.yml
 ```
 
 ### Some ressource for the project
@@ -93,5 +93,6 @@ ansible-playbook playbook/deploy.yml #no need for other args since the everythin
 - [Ansible tutorial: install Wordpress with Ansible playbook (video)](https://www.youtube.com/watch?v=Gxbj28ZoUbI)
 - [Automate your Docker deployments with Ansible (video)](https://www.youtube.com/watch?v=CQk9AOPh5pw)
 - [This web UI for Ansible is so damn useful!(video)](https://www.youtube.com/watch?v=Gxbj28ZoUbI)
-- [Things I wish I knew about Ansible from day 1](https://www.youtube.com/watch?v=Gxbj28ZoUbI)
-- [Automate EVERYTHING with Ansible! (Ansible for Beginners)](https://www.youtube.com/watch?v=Gxbj28ZoUbI)
+- [Things I wish I knew about Ansible from day 1(video](https://www.youtube.com/watch?v=Gxbj28ZoUbI)
+- [Automate EVERYTHING with Ansible! (Ansible for Beginners)(video](https://www.youtube.com/watch?v=Gxbj28ZoUbI)
+- [Ansible docker(docs of a video)](https://github.com/christianlempa/videos/tree/main/ansible-and-docker)
