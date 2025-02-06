@@ -78,6 +78,19 @@ The Ansible playbook will deploy the following containers automatically:
 
 and then i just need to setup `ssl` and `firewall` rules.
 
+### To setup the ssh connection token
+
+Get the .pub token of your computer and add it to `known_hosts` file on your server. 
+
+Then you should be able to connect to your server without password,
+then for Ansible, add your private_key (of your computer) to the .cfg
+of Ansible in this field : 
+
+```conf
+## in my case this
+private_key_file = ~/.ssh/id_rsa
+```
+
 ## How to run the project 
 
 ```bash
@@ -95,7 +108,7 @@ ansible-playbook playbook/install_container.yml
 ansible-playbook playbook/install_dns.yml
 ```
 
-Access the wordpress website here : `https://bapasqui-cloud1.duckdns.org/`
+Access the wordpress website here : `http://bapasqui-cloud1.duckdns.org/`
 
 ### Some ressource for the project
 

@@ -13,6 +13,7 @@
         - db
         - phpmyadmin
         - portainer
+        - duckdns
 
     - name: Remove all containers
       community.docker.docker_container:
@@ -23,6 +24,7 @@
         - db
         - phpmyadmin
         - portainer
+        - duckdns
 
     - name: Remove all networks
       community.docker.docker_network:
@@ -40,3 +42,4 @@
         - db
         - phpmyadmin
         - portainer
+        - duckdns

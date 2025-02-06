@@ -9,6 +9,18 @@
       community.docker.docker_network:
         name: wordpress
 
+    - name: Deploy Duckdns
+      community.docker.docker_container:
+        name: duckdns
+        image: linuxserver/duckdns:latest
+        env:
+          PUID: "1000"
+          PGID: "1000"
+          TZ: "Europe/Paris"
+          SUBDOMAINS: "bapasqui-cloud1"
+          TOKEN: ""
+        restart_policy: always
+
     - name: Deploy Wordpress
       community.docker.docker_container:
         name: wordpress
@@ -72,18 +84,4 @@
           - portainer:/data
           - /var/run/docker.sock:/var/run/docker.sock
         restart_policy: always
-
-    # - name : Deploy Caddy
-    #   community.docker.docker_container:
-    #     name: caddy
-    #     image: caddy:latest
-    #     ports:
-    #       - "80:80"
-    #     networks:
-    #       - name: wordpress
-    #     volumes:
-    #       - caddy:/etc/caddy
-    #       - caddy_data:/data
-    #       - caddy_config:/config
-    #     restart_policy: always
   
