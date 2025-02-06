@@ -13,10 +13,10 @@
       community.docker.docker_container:
         name: wordpress
         image: wordpress:latest
-        ports:
-          - "80:80"
         networks:
           - name: wordpress
+        ports:
+          - "80:80"
         volumes:
           - wordpress:/var/www/html
         env:
@@ -24,6 +24,8 @@
           WORDPRESS_DB_USER: "bapasqui"
           WORDPRESS_DB_PASSWORD: "pass"
           WORDPRESS_DB_NAME: "exampledb"
+          WORDPRESS_HOME: "http://192.168.56.110/wordpress"
+          WORDPRESS_SITEURL: "http://192.168.56.110/wordpress"
         restart_policy: always
 
     - name: Deploy MYSQL
@@ -56,3 +58,32 @@
           PMA_HOST: "db"
           MYSQL_ROOT_PASSWORD: "pass"
         restart_policy: always
+
+    - name: Deploy Portainer
+      community.docker.docker_container:
+        name: portainer
+        image: portainer/portainer-ce:latest
+        networks:
+          - name: wordpress
+        ports:
+          - "9000:9000"
+          - "8000:8000"
+        volumes:
+          - portainer:/data
+          - /var/run/docker.sock:/var/run/docker.sock
+        restart_policy: always
+
+    # - name : Deploy Caddy
+    #   community.docker.docker_container:
+    #     name: caddy
+    #     image: caddy:latest
+    #     ports:
+    #       - "80:80"
+    #     networks:
+    #       - name: wordpress
+    #     volumes:
+    #       - caddy:/etc/caddy
+    #       - caddy_data:/data
+    #       - caddy_config:/config
+    #     restart_policy: always
+  
