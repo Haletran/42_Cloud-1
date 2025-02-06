@@ -81,7 +81,13 @@ and then i just need to setup `ssl` and `firewall` rules.
 ## How to run the project 
 
 ```bash
+## launch the nix-shell
 NIXPKGS_ALLOW_UNFREE=1 nix-shell flake.nix
+```
+
+```bash
+make all
+## or
 cd src && vagrant up
 ## this will create an Ubuntu VM
 ansible-playbook playbook/install_docker.yml #no need for other args since the everything is setup in ansible.cfg
