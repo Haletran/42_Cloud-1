@@ -2,6 +2,17 @@
 
 [Subject](https://cdn.intra.42.fr/pdf/pdf/147805/en.subject.pdf)
 
+## TODO
+
+- [ ] Need to replace Ansible yml file for container creations into a docker compose
+- [ ] Setup TLS/https with duckdns domain
+- [ ] Setup NGINX as proxy instead of raw port
+- [ ] Setup .env generation and copy
+- [ ] Add automatic way to connect to a server (ssh key generation)
+- [ ] Add custom user instead of root (like ansuser or else) and check if container already exist etc...
+- [ ] Add check for distro in installation docker to make this compatible with every server distro
+- [ ] Make persistent data with volumes
+
 ## Project
 
 The VPS on `Vultr` is running on Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-42-generic x86_64) as required by the subject.
@@ -103,7 +114,7 @@ make all
 ## or
 cd src && vagrant up
 ## this will create an Ubuntu VM
-ansible-playbook playbook/install_docker.yml #no need for other args since the everything is setup in ansible.cfg
+ansible-playbook playbook/install_docker.yml #no need for other args since  everything is setup in ansible.cfg
 ansible-playbook playbook/install_container.yml
 ansible-playbook playbook/install_dns.yml
 ```

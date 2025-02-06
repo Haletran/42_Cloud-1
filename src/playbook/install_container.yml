@@ -36,8 +36,6 @@
           WORDPRESS_DB_USER: "bapasqui"
           WORDPRESS_DB_PASSWORD: "pass"
           WORDPRESS_DB_NAME: "exampledb"
-          WORDPRESS_HOME: "http://192.168.56.110/wordpress"
-          WORDPRESS_SITEURL: "http://192.168.56.110/wordpress"
         restart_policy: always
 
     - name: Deploy MYSQL

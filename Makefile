@@ -14,6 +14,9 @@ vm-start:
 stop:
 	@cd src && vagrant halt
 
+down: 
+	@cd src && ansible-playbook playbook/reset_container.yml
+
 reset:
 	# @cd src && vagrant destroy -f
 	@cd src && ansible-playbook playbook/reset_container.yml
