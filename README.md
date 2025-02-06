@@ -78,6 +78,15 @@ The Ansible playbook will deploy the following containers automatically:
 
 and then i just need to setup `ssl` and `firewall` rules.
 
+## How to run the project 
+
+
+```bash
+NIXPKGS_ALLOW_UNFREE=1 nix-shell flake.nix
+cd src && vagrant up
+## this will create an Ubuntu VM
+ansible-playbook playbook/deploy.yml #no need for other args since the everything is setup in ansible.cfg
+```
 
 ### Some ressource for the project
 
