@@ -3,7 +3,7 @@
   hosts: "*"
   become: yes
 
-  ## config from this link (dk if that work) : https://github.com/christianlempa/videos/tree/main/ansible-and-docker
+  ## config from this link: https://github.com/christianlempa/videos/tree/main/ansible-and-docker
   tasks:
     - name: Create Network
       community.docker.docker_network:
@@ -21,8 +21,8 @@
           - wordpress:/var/www/html
         env:
           WORDPRESS_DB_HOST: "db"
-          WORDPRESS_DB_USER: "exampleuser"
-          WORDPRESS_DB_PASSWORD: "examplepass"
+          WORDPRESS_DB_USER: "bapasqui"
+          WORDPRESS_DB_PASSWORD: "pass"
           WORDPRESS_DB_NAME: "exampledb"
         restart_policy: always
 
@@ -36,7 +36,23 @@
           - db:/var/lib/mysql
         env:
           MYSQL_DATABASE: "exampledb"
-          MYSQL_USER: "exampleuser"
-          MYSQL_PASSWORD: "examplepass"
+          MYSQL_USER: "bapasqui"
+          MYSQL_PASSWORD: "pass"
           MYSQL_RANDOM_ROOT_PASSWORD: '1'
+        restart_policy: always
+
+    - name: Deploy PhpMyAdmin
+      community.docker.docker_container:
+        name: phpmyadmin
+        image: phpmyadmin:latest
+        ports:
+          - "8081:80"
+          - "8082:8080"
+        networks:
+          - name: wordpress
+        volumes:
+          - phpmyadmin:/var/www/html
+        env:
+          PMA_HOST: "db"
+          MYSQL_ROOT_PASSWORD: "pass"
         restart_policy: always
