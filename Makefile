@@ -8,7 +8,6 @@ build:
 container:
 	@cd src && ansible-playbook playbook/install_container.yml
 
-
 vm-start:
 	@cd src && vagrant up
 
@@ -18,7 +17,10 @@ stop:
 reset:
 	@cd src && vagrant destroy -f
 
-restart:
+restart_vps:
+	@cd src && ansible-playbook playbook/reset_container.yml
+
+restart_vagrant:
 	-cd src && vagrant ssh cloud-1 -c "docker stop phpmyadmin db wordpress portainer caddy"
 	-cd src && vagrant ssh cloud-1 -c "docker rm phpmyadmin db wordpress portainer caddy"
 	-cd src && vagrant ssh cloud-1 -c "docker container prune -f"

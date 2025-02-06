@@ -1,0 +1,42 @@
+---
+- name: Reset all containers
+  hosts: "*"
+  become: yes
+
+  tasks:
+    - name: Stop all containers
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - wordpress
+        - db
+        - phpmyadmin
+        - portainer
+
+    - name: Remove all containers
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - wordpress
+        - db
+        - phpmyadmin
+        - portainer
+
+    - name: Remove all networks
+      community.docker.docker_network:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - wordpress
+
+    - name: Remove all volumes
+      community.docker.docker_volume:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - wordpress
+        - db
+        - phpmyadmin
+        - portainer

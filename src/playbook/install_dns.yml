@@ -8,30 +8,30 @@
   tasks:
     - name: Create duckdns directory
       file:
-        path: /home/vagrant/duckdns
+        path: /home/root/duckdns
         state: directory
-        owner: vagrant
-        group: vagrant
+        owner: root
+        group: root
         mode: '0700'
 
     - name: Create duck.sh script
       copy:
         content: |
-          echo url="https://www.duckdns.org/update?domains=bapasqui-cloud1&token={{ token }}&ip=" | curl -k -o /home/vagrant/duckdns/duck.log -K -
-        dest: /home/vagrant/duckdns/duck.sh
-        owner: vagrant
-        group: vagrant
+          echo url="https://www.duckdns.org/update?domains=bapasqui-cloud1&token={{ token }}&ip=" | curl -k -o /home/root/duckdns/duck.log -K -
+        dest: /home/root/duckdns/duck.sh
+        owner: root
+        group: root
         mode: '0700'
 
     - name: Setup Crontab
       cron:
         name: "DuckDNS"
         minute: "*/5"
-        job: "cd /home/vagrant/duckdns && ./duck.sh"
-        user: vagrant
+        job: "cd /home/root/duckdns && ./duck.sh"
+        user: root
         state: present
 
     - name: Run DuckDNS
       shell: ./duck.sh
       args:
-        chdir: /home/vagrant/duckdns
+        chdir: /home/root/duckdns

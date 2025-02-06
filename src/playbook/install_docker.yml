@@ -36,5 +36,5 @@
         state: started
         enabled: yes
 
-    - name: Add User to Docker group
-      shell: usermod -aG docker vagrant
+    # - name: Add User to Docker group
+    #   shell: usermod -aG docker vagrant
