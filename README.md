@@ -105,3 +105,4 @@ Access the wordpress website here : `https://bapasqui-cloud1.duckdns.org/`
 - [Things I wish I knew about Ansible from day 1(video](https://www.youtube.com/watch?v=Gxbj28ZoUbI)
 - [Automate EVERYTHING with Ansible! (Ansible for Beginners)(video](https://www.youtube.com/watch?v=Gxbj28ZoUbI)
 - [Ansible docker(docs of a video)](https://github.com/christianlempa/videos/tree/main/ansible-and-docker)
+- [Setup Caddy on docker](https://thriveread.com/caddy-reverse-proxy-server-docker-compose)
