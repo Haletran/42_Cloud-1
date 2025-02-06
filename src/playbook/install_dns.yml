@@ -1,0 +1,37 @@
+---
+- name: Setup DNS (duckdns)
+  hosts: "*"
+  become: yes
+  vars:
+    token: ""
+
+  tasks:
+    - name: Create duckdns directory
+      file:
+        path: /home/vagrant/duckdns
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0700'
+
+    - name: Create duck.sh script
+      copy:
+        content: |
+          echo url="https://www.duckdns.org/update?domains=bapasqui-cloud1&token={{ token }}&ip=" | curl -k -o /home/vagrant/duckdns/duck.log -K -
+        dest: /home/vagrant/duckdns/duck.sh
+        owner: vagrant
+        group: vagrant
+        mode: '0700'
+
+    - name: Setup Crontab
+      cron:
+        name: "DuckDNS"
+        minute: "*/5"
+        job: "cd /home/vagrant/duckdns && ./duck.sh"
+        user: vagrant
+        state: present
+
+    - name: Run DuckDNS
+      shell: ./duck.sh
+      args:
+        chdir: /home/vagrant/duckdns

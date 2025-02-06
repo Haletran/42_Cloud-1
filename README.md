@@ -92,7 +92,10 @@ cd src && vagrant up
 ## this will create an Ubuntu VM
 ansible-playbook playbook/install_docker.yml #no need for other args since the everything is setup in ansible.cfg
 ansible-playbook playbook/install_container.yml
+ansible-playbook playbook/install_dns.yml
 ```
+
+Access the wordpress website here : `https://bapasqui-cloud1.duckdns.org/`
 
 ### Some ressource for the project
 

@@ -3,7 +3,7 @@
 all: vm-start build
 
 build:
-	@cd src && ansible-playbook playbook/install_docker.yml && ansible-playbook playbook/install_container.yml
+	@cd src && ansible-playbook playbook/install_docker.yml && ansible-playbook playbook/install_container.yml && ansible-playbook playbook/install_dns.yml
 
 container:
 	@cd src && ansible-playbook playbook/install_container.yml
