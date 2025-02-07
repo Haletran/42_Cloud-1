@@ -1,7 +1,5 @@
 # 42_Cloud-1
 
-[Subject](https://cdn.intra.42.fr/pdf/pdf/147805/en.subject.pdf)
-
 ## TODO
 
 - [ ] Need to replace Ansible yml file for container creations into a docker compose
@@ -20,6 +18,12 @@ This VPS will be were the project will run, so the launch of everything can be d
 then it will be deployed on the VPS. 
 
 Basically the goal of this project is to deploy a fully functionnal `Wordpress` instance on a `VPS` using `Docker` and `Ansible`.
+
+[Subject](https://cdn.intra.42.fr/pdf/pdf/147805/en.subject.pdf)
+
+
+<details>
+<summary>Requirements</summary>
 
 ### REQUIREMENTS
 
@@ -78,6 +82,8 @@ ansible-playbook ./src/playbook/deploy.yml -i ./src/inventory/hosts --user root 
 ansible -i src/inventory/hosts ubuntu -m ping --user root --ask-pass
 ```
 
+</details>
+
 ### CONTAINERS
 
 The Ansible playbook will deploy the following containers automatically:
@@ -85,9 +91,9 @@ The Ansible playbook will deploy the following containers automatically:
 - `Wordpress` (CMS) 
 - `MySQL` (Database) 
 - `PHPMyAdmin` (Database Management) 
-- `Nginx` (Web Server)
-
-and then i just need to setup `ssl` and `firewall` rules.
+- `Caddy` (Web Server - it will setup the TLS/https)
+- `DuckDNS` (Dynamic DNS)
+- `Portainer` (Container Management)
 
 ### To setup the ssh connection token
 
@@ -112,14 +118,16 @@ NIXPKGS_ALLOW_UNFREE=1 nix-shell flake.nix
 ```bash
 make all
 ## or
-cd src && vagrant up
-## this will create an Ubuntu VM
 ansible-playbook playbook/install_docker.yml #no need for other args since  everything is setup in ansible.cfg
 ansible-playbook playbook/install_container.yml
-ansible-playbook playbook/install_dns.yml
 ```
 
-Access the wordpress website here : `http://bapasqui-cloud1.duckdns.org/`
+Access all the web services with the following links:
+
+- `Wordpress` : [wordpress.bapasqui-cloud1.duckdns.org](https://wordpress.bapasqui-cloud1.duckdns.org)
+- `PHPMyAdmin` : [phpmyadmin.bapasqui-cloud1.duckdns.org](https://phpmyadmin.bapasqui-cloud1.duckdns.org)
+- `Portainer` : [portainer.bapasqui-cloud1.duckdns.org](https://portainer.bapasqui-cloud1.duckdns.org)
+
 
 ### Some ressource for the project
 
