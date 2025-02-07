@@ -7,7 +7,7 @@ pkgs.mkShell {
     pkgs.ansible
 	  pkgs.sshpass 
 	  pkgs.glibcLocales
-    pkgs.vagrant
+    #pkgs.vagrant
   ];
 
   shellHook = ''
@@ -16,6 +16,6 @@ pkgs.mkShell {
 
     echo "Cloud-1 environment is ready!"
     ansible --version
-    vagrant --version
+    #vagrant --version
   '';
 }
