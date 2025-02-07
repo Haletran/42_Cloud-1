@@ -27,8 +27,8 @@
         image: wordpress:latest
         networks:
           - name: wordpress
-        ports:
-          - "80:80"
+        expose:
+          - "80"
         volumes:
           - wordpress:/var/www/html
         env:
@@ -57,9 +57,8 @@
       community.docker.docker_container:
         name: phpmyadmin
         image: phpmyadmin:latest
-        ports:
-          - "8081:80"
-          - "8082:8080"
+        expose:
+          - "80"
         networks:
           - name: wordpress
         volumes:
@@ -75,11 +74,35 @@
         image: portainer/portainer-ce:latest
         networks:
           - name: wordpress
+        expose:
+          - "9000"
         ports:
-          - "9000:9000"
           - "8000:8000"
         volumes:
           - portainer:/data
           - /var/run/docker.sock:/var/run/docker.sock
+        restart_policy: always
+
+    - name : Copy files to server
+      copy:
+        src: Caddyfile
+        dest: ~/Caddyfile
+
+
+    - name: Deploy Caddy
+      community.docker.docker_container:
+        name: caddy
+        image: caddy:latest
+        networks:
+          - name: wordpress
+        ports:
+          - "443:443"
+          - "80:80"
+        volumes:
+          - caddy:/etc/caddy
+          - caddy_data:/data
+          - caddy_config:/config
+          - /var/run/docker.sock:/var/run/docker.sock
+          - ~/Caddyfile:/etc/caddy/Caddyfile
         restart_policy: always
   

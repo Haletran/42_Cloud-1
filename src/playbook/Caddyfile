@@ -1,0 +1,12 @@
+wordpress.bapasqui-cloud1.duckdns.org {
+    reverse_proxy wordpress:80
+}
+
+phpmyadmin.bapasqui-cloud1.duckdns.org {
+    reverse_proxy phpmyadmin:80
+}
+
+portainer.bapasqui-cloud1.duckdns.org {
+    reverse_proxy portainer:9000
+}
+

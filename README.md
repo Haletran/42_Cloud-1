@@ -5,8 +5,8 @@
 ## TODO
 
 - [ ] Need to replace Ansible yml file for container creations into a docker compose
-- [ ] Setup TLS/https with duckdns domain
-- [ ] Setup NGINX as proxy instead of raw port
+- [x] Setup TLS/https with duckdns domain
+- [x] Setup Caddy as proxy instead of raw port
 - [ ] Setup .env generation and copy
 - [ ] Add automatic way to connect to a server (ssh key generation)
 - [ ] Add custom user instead of root (like ansuser or else) and check if container already exist etc...
