@@ -47,10 +47,11 @@
         - duckdns
         - caddy
 
-    - name: Remove Caddyfile from the server
-      become: yes
+    - name: Remove Docker Compose folder
       file:
-        path: ~/Caddyfile
+        path: ~/cloud-1
         state: absent
+    
+
 
 

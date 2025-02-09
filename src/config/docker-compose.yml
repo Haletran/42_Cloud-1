@@ -1,0 +1,99 @@
+services:
+  duckdns:
+    image: linuxserver/duckdns:latest
+    container_name: duckdns
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Europe/Paris"
+      SUBDOMAINS: "bapasqui-cloud1"
+      TOKEN: "${DUCKDNS_TOKEN}"
+    restart: always
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    networks:
+      - cloud-1
+    expose:
+      - "80"
+    volumes:
+      - wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: "db"
+      WORDPRESS_DB_USER: "${WORDPRESS_DB_USER}"
+      WORDPRESS_DB_PASSWORD: "${MYSQL_PASSWORD}"
+      WORDPRESS_DB_NAME: "exampledb"
+    restart: always
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    networks:
+      - cloud-1
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: "exampledb"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    expose:
+      - "80"
+    networks:
+      - cloud-1
+    volumes:
+      - phpmyadmin:/var/www/html
+    environment:
+      PMA_HOST: "db"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
+    restart: always
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    networks:
+      - cloud-1
+    expose:
+      - "9000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    networks:
+      - cloud-1
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - caddy:/etc/caddy
+      - caddy_data:/data
+      - caddy_config:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/cloud-1/caddy/Caddyfile:/etc/caddy/Caddyfile
+    restart: always
+
+
+networks:
+  cloud-1:
+    driver: bridge
+
+volumes:
+  wordpress:
+  db:
+  phpmyadmin:
+  portainer:
+  caddy:
+  caddy_data:
+  caddy_config:

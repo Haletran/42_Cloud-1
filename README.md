@@ -2,10 +2,10 @@
 
 ## TODO
 
-- [ ] Need to replace Ansible yml file for container creations into a docker compose
+- [x] Need to replace Ansible yml file for container creations into a docker compose
 - [x] Setup TLS/https with duckdns domain
 - [x] Setup Caddy as proxy instead of raw port
-- [ ] Setup .env generation and copy
+- [x] Setup .env generation and copy
 - [ ] Add automatic way to connect to a server (ssh key generation)
 - [ ] Add custom user instead of root (like ansuser or else) and check if container already exist etc...
 - [ ] Add check for distro in installation docker to make this compatible with every server distro
@@ -80,6 +80,16 @@ ansible-playbook ./src/playbook/deploy.yml -i ./src/inventory/hosts --user root 
 
 # To connect to the remote servers and run commands
 ansible -i src/inventory/hosts ubuntu -m ping --user root --ask-pass
+```
+> For .env, i'm using ansible-vault to encrypt the file and then decrypt it when needed.
+
+```bash
+# Encrypt the .env file
+ansible-vault encrypt .env
+# To edit it
+ansible-vault edit .env
+# To decrypt it
+ansible-vault decrypt .env
 ```
 
 </details>
