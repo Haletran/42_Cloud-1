@@ -91,9 +91,29 @@ networks:
 
 volumes:
   wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/cloud-1/wordpress
+      o: bind
   db:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/cloud-1/db
+      o: bind
   phpmyadmin:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/cloud-1/phpmyadmin
+      o: bind
   portainer:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/cloud-1/portainer
+      o: bind
   caddy:
   caddy_data:
   caddy_config:

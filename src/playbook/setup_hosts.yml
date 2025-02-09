@@ -28,15 +28,3 @@
         src: ../config/docker-compose.yml
         dest: ~/cloud-1/docker-compose.yml
         mode: '0600'
-
-    - name: Create Caddy directory
-      file: 
-        path: ~/cloud-1/caddy
-        state: directory
-        mode: '0755'
-
-    - name: Copy Caddyfile to server
-      copy:
-        src: ../config/caddy/Caddyfile
-        dest: ~/cloud-1/caddy/Caddyfile
-        mode: '0600'

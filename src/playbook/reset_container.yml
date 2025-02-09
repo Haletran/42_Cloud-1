@@ -47,7 +47,19 @@
         - duckdns
         - caddy
 
+    - name : Remove all images
+      community.docker.docker_image:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - wordpress
+        - mysql
+        - phpmyadmin
+        - portainer
+        - caddy
+
     - name: Remove Docker Compose folder
+      become: yes
       file:
         path: ~/cloud-1
         state: absent

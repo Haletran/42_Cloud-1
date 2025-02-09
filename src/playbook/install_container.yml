@@ -4,6 +4,42 @@
   become: yes
 
   tasks:
+    - name: Create Caddy directory
+      file: 
+        path: ~/cloud-1/caddy
+        state: directory
+        mode: '0755'
+
+    - name: Copy Caddyfile to server
+      copy:
+        src: ../config/caddy/Caddyfile
+        dest: ~/cloud-1/caddy/Caddyfile
+        mode: '0600'
+
+    - name: Create Wordpress folder
+      file:
+        path: ~/cloud-1/wordpress
+        state: directory
+        mode: '0755'
+    
+    - name: Create MySQL folder
+      file:
+        path: ~/cloud-1/db
+        state: directory
+        mode: '0755'
+    
+    - name: Create PHPMyAdmin folder
+      file:
+        path: ~/cloud-1/phpmyadmin
+        state: directory
+        mode: '0755'
+    
+    - name: Create Portainer folder
+      file:
+        path: ~/cloud-1/portainer
+        state: directory
+        mode: '0755'
+
     - name: Start Docker Compose
       command: docker-compose up -d
       args:

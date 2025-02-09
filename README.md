@@ -9,7 +9,7 @@
 - [ ] Add automatic way to connect to a server (ssh key generation)
 - [ ] Add custom user instead of root (like ansuser or else) and check if container already exist etc...
 - [ ] Add check for distro in installation docker to make this compatible with every server distro
-- [ ] Make persistent data with volumes
+- [x] Make persistent data with volumes
 
 ## Project
 
