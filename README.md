@@ -81,16 +81,6 @@ ansible-playbook ./src/playbook/deploy.yml -i ./src/inventory/hosts --user root 
 # To connect to the remote servers and run commands
 ansible -i src/inventory/hosts ubuntu -m ping --user root --ask-pass
 ```
-> For .env, i'm using ansible-vault to encrypt the file and then decrypt it when needed.
-
-```bash
-# Encrypt the .env file
-ansible-vault encrypt .env
-# To edit it
-ansible-vault edit .env
-# To decrypt it
-ansible-vault decrypt .env
-```
 
 </details>
 
@@ -117,6 +107,29 @@ of Ansible in this field :
 ## in my case this
 private_key_file = ~/.ssh/id_rsa
 ```
+
+### Setup .env
+
+For .env, i'm using ansible-vault to encrypt the file and then decrypt it when needed.
+And I'm using jinja2 (env.j2) template to generate the .env file with the encrypted password.
+
+```bash
+# Encrypt the .env file
+ansible-vault encrypt vault.yml
+# To edit it
+ansible-vault edit vault.yml
+# To decrypt it
+ansible-vault decrypt vault.yml
+```
+
+Example of the vault.yml file:
+
+```yaml
+# vault.yml
+db_root_password: "root"
+db_name: "wordpress"
+```
+
 
 ## How to run the project 
 
