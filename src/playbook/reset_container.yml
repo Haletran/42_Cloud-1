@@ -4,17 +4,14 @@
   become: yes
 
   tasks:
-    - name: Stop all containers
-      community.docker.docker_container:
-        name: "{{ item }}"
-        state: absent
-      with_items:
-        - wordpress
-        - db
-        - phpmyadmin
-        - portainer
-        - duckdns
-        - caddy
+    - name: Check if cloud-1 directory exists
+      stat:
+        path: ~/cloud-1
+      register: cloud1_dir
+
+    - name: Down all containers
+      shell: "cd ~/cloud-1 && docker-compose down"
+      when: cloud1_dir.stat.exists
 
     - name: Remove all containers
       community.docker.docker_container:
@@ -33,19 +30,21 @@
         name: "{{ item }}"
         state: absent
       with_items:
-        - wordpress
+        - cloud-1
 
     - name: Remove all volumes
       community.docker.docker_volume:
         name: "{{ item }}"
         state: absent
       with_items:
-        - wordpress
-        - db
-        - phpmyadmin
-        - portainer
-        - duckdns
-        - caddy
+        - cloud-1_wordpress
+        - cloud-1_db
+        - cloud-1_phpmyadmin
+        - cloud-1_portainer
+        - cloud-1_duckdns
+        - cloud-1_caddy
+        - cloud-1_caddy_data
+        - cloud-1_caddy_config
 
     - name : Remove all images
       community.docker.docker_image:
@@ -63,6 +62,7 @@
       file:
         path: ~/cloud-1
         state: absent
+      when: cloud1_dir.stat.exists
     
 
 

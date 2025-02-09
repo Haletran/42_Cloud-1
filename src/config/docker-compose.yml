@@ -41,7 +41,7 @@ services:
     restart: always
 
   phpmyadmin:
-    image: phpmyadmin:latest
+    image: phpmyadmin
     container_name: phpmyadmin
     expose:
       - "80"
