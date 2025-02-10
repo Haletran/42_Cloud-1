@@ -1,0 +1,25 @@
+---
+- name: Setup SSH keys
+  hosts: all
+  gather_facts: no
+  become: yes
+  vars_files:
+    - ../vault.yml
+
+  tasks:
+    - name: Check if SSH key is already set up
+      raw: test -f ~/.ssh/authorized_keys && grep -q "$(cat ~/.ssh/ansible.pub)" ~/.ssh/authorized_keys
+      register: ssh_key_check
+      ignore_errors: yes
+
+    - name: Ensure ~/.ssh directory exists
+      raw: mkdir -p ~/.ssh && chmod 700 ~/.ssh
+      when: ssh_key_check.rc != 0
+
+    - name: Copy public key to authorized_keys
+      raw: echo "{{ lookup('file', '~/.ssh/ansible.pub') }}" >> ~/.ssh/authorized_keys
+      when: ssh_key_check.rc != 0
+
+    - name: Set correct permissions
+      raw: chmod 600 ~/.ssh/authorized_keys
+      when: ssh_key_check.rc != 0

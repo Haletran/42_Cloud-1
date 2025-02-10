@@ -4,6 +4,14 @@
   become: yes
 
   tasks:
+    - name: Check if docker is installed
+      stat: path=/usr/bin/docker
+      register: docker_check
+
+    - name: Check if docker-compose is installed
+      stat: path=/usr/local/bin/docker-compose
+      register: docker_compose_check
+
     - name: Install Required Packages
       apt:
         name: 
@@ -12,26 +20,32 @@
           - curl
           - software-properties-common
         state: present
+      when: docker_check.stat.exists == False
 
     - name: Add Docker GPG Key
       shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+      when: docker_check.stat.exists == False
 
     - name: Add Docker Repository
       shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      when: docker_check.stat.exists == False
 
     - name: Install Docker
       apt:
         name: docker-ce
         state: present
         update_cache: yes
+      when: docker_check.stat.exists == False
 
     - name: Install Docker Compose
       shell: curl -SL https://github.com/docker/compose/releases/download/v2.32.4/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+      when: docker_compose_check.stat.exists == False
 
     - name: Make Docker Compose executable
       file:
         path: /usr/local/bin/docker-compose
         mode: '+x'
+      when: docker_compose_check.stat.exists == False
 
     - name: Start and Enable Docker Service
       systemd:
