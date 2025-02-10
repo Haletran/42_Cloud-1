@@ -17,13 +17,15 @@ services:
       - cloud-1
     expose:
       - "80"
+    depends_on:
+      - db
     volumes:
       - wordpress:/var/www/html
     environment:
       WORDPRESS_DB_HOST: "db"
       WORDPRESS_DB_USER: "${WORDPRESS_DB_USER}"
       WORDPRESS_DB_PASSWORD: "${MYSQL_PASSWORD}"
-      WORDPRESS_DB_NAME: "exampledb"
+      WORDPRESS_DB_NAME: "wordpress_db"
     restart: always
 
   db:
@@ -34,7 +36,7 @@ services:
     volumes:
       - db:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: "exampledb"
+      MYSQL_DATABASE: "wordpress_db"
       MYSQL_USER: "${MYSQL_USER}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
@@ -47,6 +49,8 @@ services:
       - "80"
     networks:
       - cloud-1
+    depends_on:
+      - db
     volumes:
       - phpmyadmin:/var/www/html
     environment:
